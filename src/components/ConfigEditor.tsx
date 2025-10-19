@@ -45,12 +45,12 @@ export function ConfigEditor(props: Props) {
 
   return (
     <>
-      <InlineField label="Path" labelWidth={14} interactive tooltip={'Json field returned to frontend'}>
+      <InlineField label="API URL" labelWidth={14} interactive tooltip={'Backend API temel adresi'}>
         <Input
           id="config-editor-path"
           onChange={onPathChange}
           value={jsonData.path}
-          placeholder="Enter the path, e.g. /api/v1"
+          placeholder="http://127.0.0.1:7000"
           width={40}
         />
       </InlineField>

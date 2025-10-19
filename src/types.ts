@@ -2,12 +2,11 @@ import { DataSourceJsonData } from '@grafana/data';
 import { DataQuery } from '@grafana/schema';
 
 export interface MyQuery extends DataQuery {
-  queryText?: string;
-  constant: number;
+  metric?: string; // 'cpu_usage_pct' | 'mem_pct' | 'load_avg_one' | 'disk'
 }
 
 export const DEFAULT_QUERY: Partial<MyQuery> = {
-  constant: 6.5,
+  metric: 'cpu_usage_pct',
 };
 
 export interface DataPoint {

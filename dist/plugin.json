@@ -1,18 +1,22 @@
 {
     "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
     "type": "datasource",
-    "name": "Monitoring",
+    "name": "Pehlione Monitoring",
     "id": "pehlione-monitoring-datasource",
     "metrics": true,
     "backend": true,
-    "executable": "gpx_monitoring",
+    "executable": "pehlione-monitoring-datasource",
     "info": {
-        "description": "",
+        "description": "Rust backend monitoring verilerini Grafana'da görselleştirin (Geliştirme Aşamasında)",
         "author": {
             "name": "Pehlione"
         },
         "keywords": [
-            "datasource"
+            "datasource",
+            "rust",
+            "monitoring",
+            "metrics",
+            "beta"
         ],
         "logos": {
             "small": "img/logo.svg",
@@ -26,6 +30,9 @@
     "dependencies": {
         "grafanaDependency": ">=10.4.0",
         "plugins": []
+    },
+    "jsonData": {
+        "path": "http://127.0.0.1:7000"
     },
     "buildMode": "development"
 }
