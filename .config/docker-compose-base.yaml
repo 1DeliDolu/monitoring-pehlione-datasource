@@ -1,7 +1,7 @@
 services:
   grafana:
     user: root
-    container_name: 'monitoring-pehlione-datasource'
+    container_name: 'pehlione-monitoring-datasource'
 
     build:
       context: .
@@ -19,13 +19,13 @@ services:
     cap_add:
       - SYS_PTRACE
     volumes:
-      - ../dist:/var/lib/grafana/plugins/monitoring-pehlione-datasource
+      - ../dist:/var/lib/grafana/plugins/pehlione-monitoring-datasource
       - ../provisioning:/etc/grafana/provisioning
-      - ..:/root/monitoring-pehlione-datasource
+      - ..:/root/pehlione-monitoring-datasource
 
     environment:
       NODE_ENV: development
-      GF_LOG_FILTERS: plugin.monitoring-pehlione-datasource:debug
+      GF_LOG_FILTERS: plugin.pehlione-monitoring-datasource:debug
       GF_LOG_LEVEL: debug
       GF_DATAPROXY_LOGGING: 1
-      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: monitoring-pehlione-datasource
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: pehlione-monitoring-datasource

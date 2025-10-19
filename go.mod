@@ -1,4 +1,4 @@
-module github.com/monitoring/pehlione
+module github.com/pehlione/monitoring
 
 go 1.24.6
 
