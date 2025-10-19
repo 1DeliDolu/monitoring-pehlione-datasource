@@ -1,4 +1,4 @@
-# Pehlione Monitoring - Grafana Data Source Plugin# Pehlione Monitoring - Grafana Data Source Plugin# Pehlione Monitoring - Grafana Data Source Plugin# Pehlione Monitoring - Grafana Data Source Plugin
+# Grafana Data Source Plugin# Pehlione Monitoring - Grafana Data Source Plugin
 
 > **⚠️ WARNUNG: Dieses Projekt befindet sich in aktiver Entwicklung.** > **⚠️ UYARI: Bu proje aktif geliştirme aşamasındadır.** Rust ile yazılmış monitoring sisteminden veri alarak Grafana üzerinde görselleştirme sağlayan bir data source plugin'i.Rust ile yazılmış monitoring sisteminden veri alarak Grafana üzerinde görselleştirme sağlayan bir data source plugin'i.
 
