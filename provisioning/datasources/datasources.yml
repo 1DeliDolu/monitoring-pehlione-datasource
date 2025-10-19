@@ -1,7 +1,7 @@
 apiVersion: 1
 
 datasources:
-  - name: 'monitoring'
+  - name: 'Pehlione Monitoring'
     type: 'pehlione-monitoring-datasource'
     access: proxy
     isDefault: false
@@ -9,6 +9,6 @@ datasources:
     version: 1
     editable: true
     jsonData:
-      path: '/resources'
+      path: 'http://localhost:8080/api/v1/metrics'
     secureJsonData:
-      apiKey: 'api-key'
+      apiKey: 'your-rust-api-key-here'

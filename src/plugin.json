@@ -7,11 +7,11 @@
   "backend": true,
   "executable": "gpx_monitoring",
   "info": {
-    "description": "",
+    "description": "Rust backend monitoring verilerini Grafana'da görselleştirin (Geliştirme Aşamasında)",
     "author": {
       "name": "Pehlione"
     },
-    "keywords": ["datasource"],
+    "keywords": ["datasource", "rust", "monitoring", "metrics", "beta"],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"
