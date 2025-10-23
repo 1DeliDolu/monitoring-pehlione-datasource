@@ -613,7 +613,7 @@ func createAppsCpuFrame(cpu *AppsCpu, metricFilter string, meta *data.FrameMeta,
 			break
 		}
 		for idx, value := range cpu.PerCorePct {
-			name := fmt.Sprintf("Core %d (%)", idx)
+			name := fmt.Sprintf("Core %d (%%)", idx)
 			field := data.NewField(name, data.Labels{"core": fmt.Sprintf("%d", idx)}, []float64{value})
 			frame.Fields = append(frame.Fields, field)
 		}
