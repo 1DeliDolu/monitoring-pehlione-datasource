@@ -25,7 +25,7 @@
         "links": [],
         "screenshots": [],
         "version": "1.0.0",
-        "updated": "2025-10-19"
+        "updated": "2025-10-23"
     },
     "dependencies": {
         "grafanaDependency": ">=10.4.0",
@@ -34,5 +34,11 @@
     "jsonData": {
         "path": "http://127.0.0.1:7000"
     },
-    "buildMode": "development"
+    "routes": [
+        {
+            "path": "api/*",
+            "url": "http://127.0.0.1:7000"
+        }
+    ],
+    "buildMode": "production"
 }

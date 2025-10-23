@@ -2,10 +2,13 @@ import { DataSourceJsonData } from '@grafana/data';
 import { DataQuery } from '@grafana/schema';
 
 export interface MyQuery extends DataQuery {
-  metric?: string; // 'cpu_usage_pct' | 'mem_pct' | 'load_avg_one' | 'disk'
+  endpoint?: string; // 'system' | 'history' | 'apps' | 'tasks' | 'alerts'
+  metric?: string; // system/history: 'cpu_usage_pct' | 'gpu_usage_pct' | ... apps: 'table' | 'cpu_pct' | 'gpu' | etc.
+  group?: string; // apps endpoint: 'process' | 'cpu' | 'memory' | 'disk' | 'network' | 'gpu'
 }
 
 export const DEFAULT_QUERY: Partial<MyQuery> = {
+  endpoint: 'history',
   metric: 'cpu_usage_pct',
 };
 
