@@ -9,6 +9,6 @@ datasources:
     version: 1
     editable: true
     jsonData:
-      path: 'http://localhost:7000/api/'
+      path: 'http://host.docker.internal:7000'
     secureJsonData:
       apiKey: 'supersecret123'

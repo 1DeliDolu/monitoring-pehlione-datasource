@@ -50,7 +50,7 @@ export function ConfigEditor(props: Props) {
           id="config-editor-path"
           onChange={onPathChange}
           value={jsonData.path}
-          placeholder="http://127.0.0.1:7000"
+          placeholder="http://host.docker.internal:7000"
           width={40}
         />
       </InlineField>

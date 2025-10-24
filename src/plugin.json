@@ -15,7 +15,8 @@
   "info": {
     "description": "Rust backend monitoring verilerini Grafana'da görselleştirin (Geliştirme Aşamasında)",
     "author": {
-      "name": "Pehlione"
+      "name": "Pehlione",
+      "email": "mustafa.ozdemir1408@gmail.com"
     },
     "keywords": ["datasource", "rust", "monitoring", "metrics", "beta"],
     "logos": {
@@ -34,7 +35,7 @@
   "routes": [
     {
       "path": "api/*",
-      "url": "http://127.0.0.1:7000"
+      "url": "http://host.docker.internal:7000"
     }
   ]
 }

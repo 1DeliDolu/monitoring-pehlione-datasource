@@ -189,7 +189,7 @@ func (d *Datasource) query(_ context.Context, pCtx backend.PluginContext, query 
 
 	baseURL := config.Path
 	if baseURL == "" {
-		baseURL = "http://127.0.0.1:7000"
+		baseURL = "http://host.docker.internal:7000"
 	}
 	// Replace localhost with 127.0.0.1 to avoid IPv6 issues
 	baseURL = strings.ReplaceAll(baseURL, "localhost", "127.0.0.1")
@@ -916,7 +916,7 @@ func (d *Datasource) CheckHealth(_ context.Context, req *backend.CheckHealthRequ
 	// Test actual connection to backend
 	baseURL := config.Path
 	if baseURL == "" {
-		baseURL = "http://127.0.0.1:7000"
+		baseURL = "http://host.docker.internal:7000"
 	}
 	// Force replace localhost with 127.0.0.1 to avoid IPv6 issues
 	baseURL = strings.ReplaceAll(baseURL, "localhost", "127.0.0.1")
