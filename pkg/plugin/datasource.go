@@ -609,14 +609,32 @@ func createAppsCpuFrame(cpu *AppsCpu, metricFilter string, meta *data.FrameMeta,
 		frame.Fields = append(frame.Fields, data.NewField("CPU Usage (%)", nil, []float64{cpu.UsagePct}))
 	case "cpu_per_core_pct":
 		if len(cpu.PerCorePct) == 0 {
-			frame.Fields = append(frame.Fields, data.NewField("core", nil, []float64{math.NaN()}))
+			frame.Fields[0] = data.NewField("time", nil, []time.Time{timestamp})
+			frame.Fields = append(frame.Fields,
+				data.NewField("core", nil, []string{"n/a"}),
+				data.NewField("value", nil, []float64{math.NaN()}),
+			)
+			frame.Meta.PreferredVisualization = data.VisTypeTable
 			break
 		}
+
+		rowCount := len(cpu.PerCorePct)
+		times := make([]time.Time, rowCount)
+		cores := make([]string, rowCount)
+		values := make([]float64, rowCount)
+
 		for idx, value := range cpu.PerCorePct {
-			name := fmt.Sprintf("Core %d (%%)", idx)
-			field := data.NewField(name, data.Labels{"core": fmt.Sprintf("%d", idx)}, []float64{value})
-			frame.Fields = append(frame.Fields, field)
+			times[idx] = timestamp
+			cores[idx] = fmt.Sprintf("Core %d", idx)
+			values[idx] = value
 		}
+
+		frame.Fields[0] = data.NewField("time", nil, times)
+		frame.Fields = append(frame.Fields,
+			data.NewField("core", nil, cores),
+			data.NewField("value", nil, values),
+		)
+		frame.Meta.PreferredVisualization = data.VisTypeTable
 	case "cpu_load_avg_one":
 		value := math.NaN()
 		if cpu.LoadAvgOne != nil {
