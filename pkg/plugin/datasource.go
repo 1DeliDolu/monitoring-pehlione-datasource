@@ -313,16 +313,14 @@ func createDataFrame(metrics []Metric, metricFilter string) *data.Frame {
 			load15[i] = *m.LoadAvgFifteen
 		}
 
+		gpuUsage[i] = 0.0
 		if m.GpuUsagePct != nil {
 			gpuUsage[i] = *m.GpuUsagePct
-		} else {
-			gpuUsage[i] = math.NaN()
 		}
 
+		gpuMemory[i] = 0.0
 		if m.GpuMemoryUsagePct != nil {
 			gpuMemory[i] = *m.GpuMemoryUsagePct
-		} else {
-			gpuMemory[i] = math.NaN()
 		}
 
 		for _, d := range m.Disks {
@@ -341,13 +339,13 @@ func createDataFrame(metrics []Metric, metricFilter string) *data.Frame {
 				gpuKeys = append(gpuKeys, key)
 			}
 
-			usageValue := math.NaN()
+			usageValue := 0.0
 			if g.GpuUsagePct != nil {
 				usageValue = *g.GpuUsagePct
 			}
 			gpuUsageSeries[key][i] = usageValue
 
-			memValue := math.NaN()
+			memValue := 0.0
 			if g.MemoryUsagePct != nil {
 				memValue = *g.MemoryUsagePct
 			}
@@ -357,8 +355,8 @@ func createDataFrame(metrics []Metric, metricFilter string) *data.Frame {
 
 		for _, key := range gpuKeys {
 			if _, ok := currentGpuKeys[key]; !ok {
-				gpuUsageSeries[key][i] = math.NaN()
-				gpuMemorySeries[key][i] = math.NaN()
+				gpuUsageSeries[key][i] = 0.0
+				gpuMemorySeries[key][i] = 0.0
 			}
 		}
 	}
@@ -392,7 +390,7 @@ func createDataFrame(metrics []Metric, metricFilter string) *data.Frame {
 		}
 	case "gpu":
 		if len(gpuKeys) == 0 {
-			frame.Fields = append(frame.Fields, data.NewField("GPU Util (%%)", nil, makeNaNSlice(1)))
+			frame.Fields = append(frame.Fields, data.NewField("GPU Util (%%)", nil, []float64{0}))
 			break
 		}
 		for _, key := range gpuKeys {
@@ -784,20 +782,26 @@ func createAppsGpuFrame(apps *AppsResponse, metricFilter string, meta *data.Fram
 	summary := apps.Gpu
 
 	switch metricFilter {
+	case "gpu_3d_pct":
+		value := 0.0
+		if summary != nil && summary.UsagePct != nil {
+			value = *summary.UsagePct
+		}
+		frame.Fields = append(frame.Fields, data.NewField("GPU 3D (%)", nil, []float64{value}))
 	case "gpu_usage_pct":
-		value := math.NaN()
+		value := 0.0
 		if summary != nil && summary.UsagePct != nil {
 			value = *summary.UsagePct
 		}
 		frame.Fields = append(frame.Fields, data.NewField("GPU Usage (%)", nil, []float64{value}))
 	case "gpu_memory_pct":
-		value := math.NaN()
+		value := 0.0
 		if summary != nil && summary.MemoryUsagePct != nil {
 			value = *summary.MemoryUsagePct
 		}
 		frame.Fields = append(frame.Fields, data.NewField("GPU Memory (%)", nil, []float64{value}))
 	case "gpu_temperature_c":
-		value := math.NaN()
+		value := 0.0
 		if summary != nil {
 			var total float64
 			var count float64
@@ -815,7 +819,7 @@ func createAppsGpuFrame(apps *AppsResponse, metricFilter string, meta *data.Fram
 	case "gpu":
 		if summary != nil {
 			for _, gpu := range summary.Gpus {
-				usageValue := math.NaN()
+				usageValue := 0.0
 				if gpu.GpuUsagePct != nil {
 					usageValue = *gpu.GpuUsagePct
 				}
@@ -826,7 +830,7 @@ func createAppsGpuFrame(apps *AppsResponse, metricFilter string, meta *data.Fram
 				)
 				frame.Fields = append(frame.Fields, usageField)
 
-				memValue := math.NaN()
+				memValue := 0.0
 				if gpu.MemoryUsagePct != nil {
 					memValue = *gpu.MemoryUsagePct
 				}
@@ -840,11 +844,11 @@ func createAppsGpuFrame(apps *AppsResponse, metricFilter string, meta *data.Fram
 		}
 	default:
 		// Unknown GPU metric request; return empty field to prevent Grafana errors.
-		frame.Fields = append(frame.Fields, data.NewField("value", nil, []float64{math.NaN()}))
+		frame.Fields = append(frame.Fields, data.NewField("value", nil, []float64{0}))
 	}
 
 	if len(frame.Fields) == 1 { // only time field present
-		frame.Fields = append(frame.Fields, data.NewField("value", nil, []float64{math.NaN()}))
+		frame.Fields = append(frame.Fields, data.NewField("value", nil, []float64{0}))
 	}
 
 	return frame
@@ -887,14 +891,6 @@ func selectProcessMetric(proc ProcessEntry, metric string) float64 {
 	default:
 		return proc.CpuPct
 	}
-}
-
-func makeNaNSlice(length int) []float64 {
-	values := make([]float64, length)
-	for i := range values {
-		values[i] = math.NaN()
-	}
-	return values
 }
 
 // CheckHealth handles health checks sent from Grafana to the plugin.

@@ -5,6 +5,12 @@
   "id": "pehlione-monitoring-datasource",
   "metrics": true,
   "backend": true,
+  "logs": true,
+  "tracing": true,
+  "alerting": true,
+  "annotations": true,
+  "streaming": true,
+
   "executable": "pehlione-monitoring-datasource",
   "info": {
     "description": "Rust backend monitoring verilerini Grafana'da görselleştirin (Geliştirme Aşamasında)",
@@ -24,9 +30,6 @@
   "dependencies": {
     "grafanaDependency": ">=10.4.0",
     "plugins": []
-  },
-  "jsonData": {
-    "path": "http://127.0.0.1:7000"
   },
   "routes": [
     {

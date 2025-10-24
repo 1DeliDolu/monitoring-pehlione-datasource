@@ -105,6 +105,7 @@ export function QueryEditor({ query, onChange, onRunQuery }: Props) {
       { label: 'Network Total TX (MB)', value: 'network_total_transmitted_mb' },
     ],
     gpu: [
+      { label: '3D', value: 'gpu_3d_pct' },
       { label: 'GPU Usage (%)', value: 'gpu_usage_pct' },
       { label: 'GPU Memory Usage (%)', value: 'gpu_memory_pct' },
       { label: 'GPU Temperature (°C)', value: 'gpu_temperature_c' },
