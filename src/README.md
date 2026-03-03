@@ -4,63 +4,63 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
 
-> **⚠️ UYARI: Bu proje aktif geliştirme aşamasındadır.**  
-> Plugin henüz production kullanımı için hazır değildir. API'ler değişebilir ve bazı özellikler eksik olabilir.
+> **⚠️ WARNING: This project is under active development.**  
+> The plugin is not yet ready for production use. APIs may change and some features may be missing.
 
-Rust backend monitoring verilerini Grafana'da görselleştirin.
+Visualize Rust backend monitoring data in Grafana.
 
-## Genel Bakış
+## Overview
 
-Pehlione Monitoring, Rust ile yazılmış backend uygulamalarınızdan gelen monitoring verilerini Grafana panellerinde görselleştirmenizi sağlayan bir data source plugin'idir.
+Pehlione Monitoring is a data source plugin that lets you visualize monitoring data from your Rust backend applications in Grafana panels.
 
-### Özellikler
+### Features
 
-- ✅ **Rust API Entegrasyonu**: Rust backend'inizden doğrudan veri çekin
-- ✅ **Güvenli Kimlik Doğrulama**: API Key tabanlı güvenli bağlantı
-- ✅ **Esnek Yapılandırma**: Özelleştirilebilir endpoint desteği
-- ✅ **Gerçek Zamanlı**: Canlı monitoring ve alerting
-- ✅ **Zaman Serisi**: Time-based metrik görselleştirme
-- ✅ **Template Variables**: Grafana değişken desteği
+- ✅ **Rust API Integration**: Pull data directly from your Rust backend
+- ✅ **Secure Authentication**: API Key-based secure connection
+- ✅ **Flexible Configuration**: Customizable endpoint support
+- ✅ **Real-Time**: Live monitoring and alerting
+- ✅ **Time Series**: Time-based metric visualization
+- ✅ **Template Variables**: Grafana variable support
 
-## Gereksinimler
+## Requirements
 
-- Grafana 10.4.0 veya üzeri
-- Rust backend API'si (Actix-web, Axum, Rocket, vs.)
-- API endpoint formatı:
+- Grafana 10.4.0 or later
+- Rust backend API (Actix-web, Axum, Rocket, etc.)
+- API endpoint format:
   ```json
   {
     "datapoints": [{ "time": 1697712000000, "value": 42.5 }]
   }
   ```
 
-## Kurulum
+## Installation
 
 ### Grafana Cloud
 
-1. Grafana instance'ınızda **Configuration** → **Plugins** bölümüne gidin
-2. "Pehlione Monitoring" araması yapın
-3. **Install** butonuna tıklayın
+1. Go to **Configuration** → **Plugins** in your Grafana instance
+2. Search for "Pehlione Monitoring"
+3. Click **Install**
 
 ### Self-Hosted Grafana
 
 ```bash
-# Grafana plugin dizinine yükleyin
+# Install to the Grafana plugin directory
 grafana-cli plugins install pehlione-monitoring-datasource
 
-# Grafana'yı restart edin
+# Restart Grafana
 systemctl restart grafana-server
 ```
 
-## Yapılandırma
+## Configuration
 
-1. **Configuration** → **Data Sources** → **Add data source**
-2. "Pehlione Monitoring" seçin
-3. Aşağıdaki bilgileri girin:
-   - **Path**: Rust API endpoint URL'i (örn: `http://localhost:8080/api/v1/metrics`)
-   - **API Key**: Kimlik doğrulama için API anahtarınız
-4. **Save & Test** ile bağlantıyı test edin
+1. Go to **Configuration** → **Data Sources** → **Add data source**
+2. Select "Pehlione Monitoring"
+3. Enter the following details:
+   - **Path**: Your Rust API endpoint URL (e.g. `http://localhost:8080/api/v1/metrics`)
+   - **API Key**: Your API key for authentication
+4. Click **Save & Test** to verify the connection
 
-## Rust Backend Örneği
+## Rust Backend Example
 
 ### Actix-web
 
@@ -98,81 +98,81 @@ async fn main() -> std::io::Result<()> {
 }
 ```
 
-## Kullanım
+## Usage
 
-1. Dashboard'a yeni panel ekleyin
-2. Data source olarak "Pehlione Monitoring" seçin
-3. Query editor'de metric adını girin
-4. Visualization type'ı seçin (Time series, Gauge, vs.)
+1. Add a new panel to your dashboard
+2. Select "Pehlione Monitoring" as the data source
+3. Enter the metric name in the query editor
+4. Choose a visualization type (Time series, Gauge, etc.)
 
-## Desteklenen Visualizations
+## Supported Visualizations
 
-- Time Series (zaman serisi grafikleri)
-- Gauge (göstergeler)
-- Stat (tek değer)
-- Table (tablo)
-- Bar Chart (çubuk grafik)
-- ve diğer Grafana panel tipleri
+- Time Series
+- Gauge
+- Stat
+- Table
+- Bar Chart
+- And other Grafana panel types
 
 ## Troubleshooting
 
-### Bağlantı Hatası
+### Connection Error
 
-- Rust API'nizin çalıştığından emin olun
-- CORS ayarlarını kontrol edin
-- API Key'in doğru olduğunu kontrol edin
+- Make sure your Rust API is running
+- Check your CORS settings
+- Verify that the API Key is correct
 
-### Veri Görünmüyor
+### No Data Visible
 
-- Response formatının doğru olduğunu kontrol edin
-- Time range ayarlarını kontrol edin
-- Browser console'da hataları inceleyin
+- Check that the response format is correct
+- Check the time range settings
+- Inspect errors in the browser console
 
-## Dokümantasyon
+## Documentation
 
-Detaylı dokümantasyon için GitHub repository'mizi ziyaret edin:
+Visit our GitHub repository for detailed documentation:
 [https://github.com/1DeliDolu/monitoring-pehlione-datasource](https://github.com/1DeliDolu/monitoring-pehlione-datasource)
 
-## Geliştirme Durumu
+## Development Status
 
-**⚠️ Bu proje aktif geliştirme aşamasındadır.**
+**⚠️ This project is under active development.**
 
-### ✅ Tamamlanmış
+### ✅ Completed
 
-- [x] Temel plugin yapısı
+- [x] Basic plugin structure
 - [x] API Key authentication
-- [x] Rust backend entegrasyonu
-- [x] Temel data query desteği
+- [x] Rust backend integration
+- [x] Basic data query support
 
-### 🚧 Devam Eden
+### 🚧 In Progress
 
-- [ ] Gelişmiş query özellikleri
-- [ ] Çoklu metrik desteği
-- [ ] Önbellekleme mekanizması
-- [ ] Kapsamlı testler
+- [ ] Advanced query features
+- [ ] Multiple metric support
+- [ ] Caching mechanism
+- [ ] Comprehensive tests
 
-### 📋 Planlanmış
+### 📋 Planned
 
-- [ ] Streaming data desteği
-- [ ] Alert desteği
-- [ ] Dashboard şablonları
-- [ ] Plugin marketplace'e yayın
+- [ ] Streaming data support
+- [ ] Alert support
+- [ ] Dashboard templates
+- [ ] Plugin marketplace release
 
-## Katkıda Bulunma
+## Contributing
 
-Katkılarınızı bekliyoruz! Lütfen GitHub'da issue açın veya pull request gönderin.
+Contributions are welcome! Please open an issue or submit a pull request on GitHub.
 
-**Not**: Production kullanımı için plugin henüz hazır değildir. Geliştirme ve test amaçlı kullanabilirsiniz.
+**Note**: The plugin is not yet ready for production use. You can use it for development and testing purposes.
 
-## Lisans
+## License
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+This project is licensed under the MIT License.
 
-## Destek
+## Support
 
 - GitHub Issues: [https://github.com/1DeliDolu/monitoring-pehlione-datasource/issues](https://github.com/1DeliDolu/monitoring-pehlione-datasource/issues)
 - Email: support@pehlione.com
 
 ---
 
-**Geliştirme Aşaması Uyarısı**: Bu plugin aktif geliştirme aşamasındadır. Production ortamında kullanmadan önce kapsamlı testler yapmanız önerilir.
+**Development Stage Warning**: This plugin is under active development. It is recommended to perform thorough testing before using it in a production environment.
